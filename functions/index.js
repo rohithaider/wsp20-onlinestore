@@ -65,7 +65,7 @@ function frontendHandler(req, res){
             products.push({id: doc.id, data: doc.data()})
         })
 
-        res.send(JSON.stringify(products))
+        res.render('storefront.ejs', {products})
 
 
         
