@@ -39,15 +39,42 @@ function frontendHandler(req, res){
 
 
  //backend'
+    const firebase = require('firebase')
+  // Your web app's Firebase configuration
+    const  firebaseConfig = {
+    apiKey: "AIzaSyCxgWlDxyung7fo595cWARkSe6SV6YQyxA",
+    authDomain: "mohtashimr-wsp20.firebaseapp.com",
+    databaseURL: "https://mohtashimr-wsp20.firebaseio.com",
+    projectId: "mohtashimr-wsp20",
+    storageBucket: "mohtashimr-wsp20.appspot.com",
+    messagingSenderId: "686773858610",
+    appId: "1:686773858610:web:d7443d94a2b279a891e72b"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
 
- app.get('/', (req,res) =>{
+  const Constants = require('./myconstants.js')
+
+ app.get('/', async(req,res) =>{
+    const coll = firebase.firestore().collection(Constants.COLL_PRODUCTS)
+    try {
+
+        let products = []
+        const snapshot=await coll.orderBy("name").get()
+        snapshot.forEach(doc=>{
+            products.push({id: doc.id, data: doc.data()})
+        })
+
+        res.send(JSON.stringify(products))
 
 
+        
+    } catch (e) {
+        res.send(JSON.stringify(e))
+        
+    }
     
-     console.log(req.headers)
      
-
-    res.send('<h1>My Store(from backend)</h1>')
     
     })
 
@@ -116,7 +143,13 @@ res.redirect('http://www.uco.edu')
         const obj={
             a:email,
             b:password,
-            c: 'Login Success'
+            c: '<h1>Login Success </h1>',
+            d: '<h1>Login Success </h1>',
+
+
+            start:1,
+            end: 10
+
 
 
 
