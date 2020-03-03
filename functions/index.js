@@ -78,6 +78,18 @@ function frontendHandler(req, res){
     
     })
 
+
+
+    app.get('/b/about', (req,res)=>{
+        res.render('about.ejs')
+    })
+    app.get('/b/contact', (req,res)=>{
+        res.render('contact.ejs')
+    })
+    app.get('/b/signin', (req,res)=>{
+        res.render('signin.ejs')
+    })
+
     //test code
      
     app.get('/test', (req,res)=>{
