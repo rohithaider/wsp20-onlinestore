@@ -10,7 +10,7 @@
     <title>Sign In</title>
   </head>
   <body>
-      <%- include('partials/nav.ejs',{page: 'signin'}) %>
+      <%- include('partials/nav.ejs',{page: 'signin',user}) %>
 
         <% if(error) { %>
             <p style="color:red;"><%=error %></p>
