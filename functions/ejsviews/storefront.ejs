@@ -13,6 +13,12 @@
   <body>
     <h1>My store</h1>
 
+    <% if(error){ %>
+        <p style= "color: red"><%=JSON.stringify(error) %> </p>
+
+
+    <% } else { %>
+
     <% for (let p of products){ %>
         <div class="card" style="width: 18rem; display: inline-block;">
             <img src="<%= p.data.image_url%>" class="card-img-top">
@@ -24,7 +30,8 @@
           </div>
 
 
-    <% }%>
+        <% }%>
+    <% } %>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

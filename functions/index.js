@@ -65,12 +65,12 @@ function frontendHandler(req, res){
             products.push({id: doc.id, data: doc.data()})
         })
 
-        res.render('storefront.ejs', {products})
+        res.render('storefront.ejs', {error: false, products})
 
 
         
     } catch (e) {
-        res.send(JSON.stringify(e))
+        res.render('storefront.ejs', {error: e})
         
     }
     

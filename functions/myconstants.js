@@ -1,5 +1,5 @@
 module.exports={
 
-COLL_PRODUCTS: 'products',
+COLL_PRODUCTS: 'product',
 
 }
