@@ -17,17 +17,19 @@
         <li class="nav-item <%= page === 'profile' ? 'active' : '' %>">
           <a class="nav-link" href="/b/profile">Profile</a>
         </li>
+         
 
         <% if(!user){ %>
 
         <li class="nav-item <%= page === 'signin' ? 'active' : '' %>">
             <a class="nav-link" href="/b/signin">Sign In</a>
           </li>
-          <%  } else{ %>
+         <%  } else{ %>
           <li class="nav-item <%= page === 'signout' ? 'active' : '' %>">
             <a class="nav-link" href="/b/signout">Sign Out</a>
           </li>
           <% } %>
+          
 
       </ul>
     </div>

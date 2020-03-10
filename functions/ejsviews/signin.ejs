@@ -10,9 +10,10 @@
     <title>Sign In</title>
   </head>
   <body>
+    
       <%- include('partials/nav.ejs',{page: 'signin',user}) %>
 
-        <% if(error) { %>
+       <% if(error) { %>
             <p style="color:red;"><%=error %></p>
 
             <% } %>
@@ -29,9 +30,14 @@
 
         <button type="submit" class="btn btn-primary">Sign In</button>
    </form>
+   <br> 
+            <p>Don't have an account? <a href="/signup">Signup</a> 
+               ,it's free.</p> 
 
     
 
-    <%- include('partials/scripts.ejs') %>
+    <%- include('partials/scripts.ejs') %> 
+
+    
   </body>
 </html>

@@ -86,6 +86,9 @@ function frontendHandler(req, res){
     app.get('/b/contact',auth, (req,res)=>{
         res.render('contact.ejs',{ user: req.user})
     })
+    
+
+
     app.get('/b/signin', (req,res)=>{
         res.render('signin.ejs',{error:false,user:req.user})
     })
@@ -99,7 +102,7 @@ function frontendHandler(req, res){
             res.redirect('/')
             
         } catch (e) {
-            res.render('signin',{error: e,user:req.user })
+            res.render('signup',{error: e,user:req.user })
             
         }
     })
@@ -117,16 +120,29 @@ function frontendHandler(req, res){
         }
     })
 
-
-    app.get('/b/profile', auth,( req,res)=>{
-
-
-        if(!req.user){
-            res.redirect('/b/signin')
-        }else{
-            res.render('profile',{user:req.user})
-        }
+    app.get('/b/signup', (req,res)=>{
+        res.render('signup.ejs',{error:false,user:req.user})
     })
+    app.get('/signup', (req,res)=>{
+        res.render('signup.ejs',{error:false,user:req.user})
+    })
+
+    app.post('/b/signup', async (req,res)=>{
+        const email=req.body.email
+        const name=req.body.name
+        res.redirect('/b/profile')
+            
+        
+            
+        }
+    )
+
+
+    /* GET Profile page. */ 
+    app.get('/b/profile',  function(req, res, next) {
+        res.render('profile', { title: 'Profile Page', user : req.user,
+         });
+    }); 
 
     //middleware
     function auth(req,res,next){
