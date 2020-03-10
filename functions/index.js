@@ -55,28 +55,35 @@ function frontendHandler(req, res){
 
   const Constants = require('./myconstants.js')
 
- app.get('/',auth, async(req,res) =>{
-    const coll = firebase.firestore().collection(Constants.COLL_PRODUCTS)
+  app.get("/", auth, async (req, res) => {
+    const coll = firebase.firestore().collection(Constants.COLL_PRODUCTS);
     try {
-
-        let products = []
-        const snapshot=await coll.orderBy("name").get()
-        snapshot.forEach(doc=>{
-            products.push({id: doc.id, data: doc.data()})
-        })
-
-        res.render('storefront.ejs', {error: false, products, user: req.user})
-
-
-        
+      let products = [];
+      const snapshot = await coll.orderBy("name").get();
+      let Items = []
+  
+      if(req.query.search){
+        Items = req.query.search.split(",") || [];
+      }
+  
+      snapshot.forEach(doc => {
+        if(Items.length > 0){
+          Items.forEach(item=>{
+            if(doc.data().name.toLowerCase().includes(item)){
+              products.push({ id: doc.id, data: doc.data() });
+            }
+          })
+        }
+        else{
+        products.push({ id: doc.id, data: doc.data() });
+        }
+      });
+      res.render("storefront.ejs", { error: false, products, user: req.user });
     } catch (e) {
-        res.render('storefront.ejs', {error: e, user: req.user})
-        
+      res.render("storefront.ejs", { error: e, user: req.user });
     }
-    
-     
-    
-    })
+  });
+  
 
 
 
@@ -128,21 +135,29 @@ function frontendHandler(req, res){
     })
 
     app.post('/b/signup', async (req,res)=>{
-        const email=req.body.email
-        const name=req.body.name
-        res.redirect('/b/profile')
+        const email =  req.body.email
+        const password = req.body.password
+        const auth = firebase.auth()
+        try {
+            const user =   auth.createUserWithEmailAndPassword(email,password)
+            res.redirect('/b/profile')
             
-        
+        } catch (e) {
+            res.render('signup',{error: e,user:req.user })
             
         }
-    )
+          });
+        
+            
+        
+    
 
 
     /* GET Profile page. */ 
-    app.get('/b/profile',  function(req, res, next) {
-        res.render('profile', { title: 'Profile Page', user : req.user,
-         });
-    }); 
+    app.get('/b/profile',  (req, res)=> {
+        res.render('profile.ejs',{error:false,user:req.user})
+    })
+
 
     //middleware
     function auth(req,res,next){

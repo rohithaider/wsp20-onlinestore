@@ -15,9 +15,19 @@
   <body>
 
 
-
-      <%- include('partials/nav.ejs',{page: 'storefront',user}) %>
-    <h1>My store</h1>
+    
+    
+      <title>Store Front</title>
+    </head>
+    <body class="container">
+        <%- include('partials/nav.ejs',{page: 'storefront', user}) %>
+      <h1>My Store</h1>
+      <form class="input-group my-8 col-10 mx-auto">
+        <input type="text" class="form-control" placeholder="Search Groceries" name="search">
+        <div class="input-group-append">
+          <button class="btn btn-outline-success" type="submit">Submit</button>
+        </div>
+      </form>
     
 
     <% if(error){ %>
