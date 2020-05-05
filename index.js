@@ -284,10 +284,10 @@ function frontendHandler(req, res){
             // set up the nodemailer here to send the email
             // ******** EMAIL SET UP **********
             const transporter = nodemailer.createTransport({
-                service: 'outlook',
+                service: 'gmail',
                 auth: {
-                    user: 'rohithaider1995@outlook.com',
-                    pass: 'Ilovenila17!'
+                    user: 'firestoreangular0@gmail.com',
+                    pass: 'nipamonalisa1'
                 }
             });
             // to is the currently logged in user
@@ -314,7 +314,7 @@ function frontendHandler(req, res){
                         </table>`;
 
             const mailOptions = {
-                from: 'rohithaider1995@outlook.com',
+                from: 'firestoreangular0@gmail.com',
                 to: user.email,
                 subject: 'Checked Out Successfull!',
                 html: html
