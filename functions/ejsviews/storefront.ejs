@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <%- include('partials/header.ejs') %>
+
+    <title>Store front</title>
+  </head>
+  <body>
+      <%- include('partials/nav.ejs',{page: 'storefront',user}) %>
+    <h1>My store</h1>
+
+    <% if(error){ %>
+        <p style= "color: red"><%=JSON.stringify(error) %> </p>
+
+
+    <% } else { %>
+
+    <% for (let p of products){ %>
+        <div class="card" style="width: 18rem; display: inline-block;">
+            <img src="<%= p.data.image_url%>" class="card-img-top">
+            <div class="card-body">
+              <h5 class="card-title"><%= p.data.name%></h5>
+              <p class="card-text">$(<%= p.data.price %>)<br><%= p.data.summary %></p>
+              <form action="/b/add2cart" method="post">
+                <input type="hidden" name="docId" value="<%= p.id %>">
+                
+                
+                <button type="submit" class="btn btn-primary">Add to Shoppingcart</button>
+                
+            </form>
+            </div>
+          </div>
+
+
+        <% }%>
+    <% } %>
+
+
+
+    <br><br>
+    <div>
+      <center>
+        <% if (products[0].data.name !== "apple"){ %>
+          <form action = "/b/previousPage" method="POST" style = "display: inline;">
+          <input type ="hidden" name = "previousIndex" value="<%= products[0].data.name %>">
+          <button type = "submit" class="btn btn-primary">Go Back </button>
+          </form>
+          <%}%>
+
+          <% if (products[products.length-1].data.name !== "strawberry"){ %>
+            <form action = "/b/nextPage" method="POST" style = "display: inline;">
+            <input type ="hidden" name = "nextIndex" value="<%= products[products.length-1].data.name %>">
+            <button type = "submit" class="btn btn-primary">Go next</button>
+            </form>
+            <%}%>
+
+
+      </center>
+    </div>
+
+    <%- include('partials/scripts.ejs') %>
+  </body>
+</html>
